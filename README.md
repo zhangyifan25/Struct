@@ -1,4 +1,4 @@
-# AstroDenoise Benchmarks (HMI + HST)
+# HMI2073 & HST1042
 
 Public benchmark data for **zero-shot astronomical image denoising**, covering two typical regimes: solar magnetograms and deep-field imaging. All samples are provided as 512×512 arrays for direct algorithm use.
 
@@ -12,15 +12,15 @@ Astronomical images rarely come with clean references, which limits supervised d
 
 - evaluating zero-shot / unpaired denoising on **real observations**;
 - covering two scenes:
-  - **Solar (HMI LOS magnetograms)**: disk-scale structure and active regions;
-  - **Deep space (HST XDF)**: very faint background with numerous weak galaxies and point sources.
+  - **HMI2073** (solar LOS magnetograms): disk-scale structure and active regions;
+  - **HST1042** (Hubble XDF patches): very faint background with numerous weak galaxies and point sources.
 
 Use `images/*.npy` as the formal input. `png/` is for browsing only; `raw_fits/` keeps the matching source FITS for provenance.
 
-| Subset | Samples | Formal data |
-|--------|---------|-------------|
-| `benchmark_hmi/` | 2073 | `images/*.npy` |
-| `benchmark_hst/` | 1042 | `images/*.npy` |
+| Dataset | Samples | Formal data |
+|---------|---------|-------------|
+| `HMI2073/` | 2073 | `images/*.npy` |
+| `HST1042/` | 1042 | `images/*.npy` |
 
 Folder meaning: `raw_fits/` original FITS; `images/` 512×512 `.npy`; `png/` grayscale previews aligned with `images/`.
 
@@ -28,14 +28,14 @@ Folder meaning: `raw_fits/` original FITS; `images/` 512×512 `.npy`; `png/` gra
 
 ## Collection and processing
 
-### 1. HMI (solar LOS magnetograms)
+### 1. HMI2073 (solar LOS magnetograms)
 
 1. Product: SDO/HMI series **`hmi.M_720s`** (LOS magnetogram, not continuum).
 2. Source: Stanford **JSOC** — http://jsoc.stanford.edu/
 3. Sampling: from **2015-06-01** to **2026-10-05**, **one frame every 2 days** on a global time grid (prefer a complete FITS near 00:00 TAI), **2073** frames; off-grid and duplicate files removed.
 4. Processing: center-crop to square, nearest-neighbor resize to **512×512**, save as `float32` `.npy`. Off-limb / invalid pixels are NaN; use `np.isfinite(img)` as the valid region.
 
-### 2. HST (Hubble eXtreme Deep Field)
+### 2. HST1042 (Hubble eXtreme Deep Field)
 
 1. Product: XDF HLSP science mosaics (`*_sci.fits`), **14** files (ACS/WFC 30mas×5, ACS/WFC 60mas×5, WFC3/IR 60mas×4).
 2. Source: STScI **MAST** — https://archive.stsci.edu/prepds/xdf/
@@ -53,13 +53,12 @@ Large binaries are **not** stored in the git tree. Get the processed datasets fr
 
 | Asset | Contents |
 |-------|----------|
-| `benchmark_hmi.tar.gz` | HMI `images/` + `png/` + README (~1.1 GB) |
-| `benchmark_hst.tar.gz` | HST `images/` + `png/` + README (~1.2 GB) |
+| `HMI2073.tar.gz` | HMI2073 `images/` + `png/` + README (~1.1 GB) |
+| `HST1042.tar.gz` | HST1042 `images/` + `png/` + README (~1.2 GB) |
 
 ```bash
-# after downloading
-tar -xzf benchmark_hmi.tar.gz
-tar -xzf benchmark_hst.tar.gz
+tar -xzf HMI2073.tar.gz
+tar -xzf HST1042.tar.gz
 ```
 
 Source FITS (`raw_fits/`) are omitted from the release due to size; regenerate from the linked archives if needed. Code will be added after paper acceptance.
@@ -110,4 +109,4 @@ Please cite the original data papers (and your own method paper) when using thes
 }
 ```
 
-See also [`benchmark_hmi/README.md`](benchmark_hmi/README.md) and [`benchmark_hst/README.md`](benchmark_hst/README.md).
+See also [`HMI2073/README.md`](HMI2073/README.md) and [`HST1042/README.md`](HST1042/README.md).
