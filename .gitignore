@@ -1,0 +1,11 @@
+.DS_Store
+**/raw_fits/
+**/images/
+**/png/
+*.fits
+*.npy
+*.png
+release_assets/
+latex/
+*.pdf
+*.docx
